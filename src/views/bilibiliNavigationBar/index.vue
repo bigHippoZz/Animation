@@ -27,14 +27,13 @@ const IMAGES_LIST = [
 export default {
   name: "bilibiliNavigationBar",
   setup() {
-    onMounted(()=>{
-      console.groupCollapsed('win width')
-      console.log(window.innerWidth,'window.innerWidth')
-      console.log(window.outerWidth,'window.outerWidth')
-      console.log(process.env)
-      console.groupEnd()
-      
-    })
+    onMounted(() => {
+      console.groupCollapsed("win width");
+      console.log(window.innerWidth, "window.innerWidth");
+      console.log(window.outerWidth, "window.outerWidth");
+      console.log(process.env);
+      console.groupEnd();
+    });
     const imagesPathSlice = (path: string): string => path.split("/")[2];
     const images = reactive(
       IMAGES_LIST.map((image) => ({
@@ -47,7 +46,7 @@ export default {
     const handleMousemove = (e: MouseEvent) => {
       const percentage = e.clientX / window.innerWidth;
       const offset = percentage * 10;
-      const blur = 20
+      const blur = 20;
       images.forEach((image, index) => {
         image.offset = offset * 1.3;
         image.blur = Math.pow(index / images.length - percentage, 2) * blur;

@@ -22,6 +22,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
+
+  {
+    path: "/textGradient",
+    name: "textGradient",
+    component: () => import("@/views/textGradient/index.vue"),
+  },
 ];
 
 const router = createRouter({

@@ -1,6 +1,12 @@
 <template>
   <div class="home">
-    <div @click="handleClick">bilibili导航栏</div>
+    <h2
+      @click="handleClick(path)"
+      v-for="{ name, path } in Animation"
+      :key="path"
+    >
+      {{ name }}
+    </h2>
   </div>
 </template>
 
@@ -10,12 +16,24 @@ import { useRouter } from "vue-router";
 export default defineComponent({
   name: "Home",
   setup() {
+    const Animation = [
+      {
+        name: "bilibili导航栏",
+        path: "/bilibiliNavigationBar",
+      },
+
+      {
+        name: "文字渐变",
+        path: "/textGradient",
+      },
+    ];
     const router = useRouter();
-    function handleClick() {
-      router.push({ path: "/bilibiliNavigationBar" });
+    function handleClick(path: string) {
+      router.push({ path });
     }
     return {
       handleClick,
+      Animation,
     };
   },
 });
