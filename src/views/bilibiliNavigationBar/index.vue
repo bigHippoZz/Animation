@@ -31,7 +31,9 @@ export default {
       console.groupCollapsed('win width')
       console.log(window.innerWidth,'window.innerWidth')
       console.log(window.outerWidth,'window.outerWidth')
+      console.log(process.env)
       console.groupEnd()
+      
     })
     const imagesPathSlice = (path: string): string => path.split("/")[2];
     const images = reactive(
