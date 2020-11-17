@@ -16,9 +16,6 @@
 
 <script lang="ts">
 import { onMounted, computed, reactive, ref, readonly, toRefs } from "vue";
-function imagesPathSlice(imagePath: string) {
-  return imagePath.split("/")[2];
-}
 const IMAGES_LIST = [
   require("./assets/8e084d67aa18ed9c42dce043e06e16b79cbb50ef.png"),
   require("./assets/082e39ef757826401ef82da818310d42e05bc2de.png"),
@@ -30,6 +27,13 @@ const IMAGES_LIST = [
 export default {
   name: "bilibiliNavigationBar",
   setup() {
+    onMounted(()=>{
+      console.groupCollapsed('win width')
+      console.log(window.innerWidth,'window.innerWidth')
+      console.log(window.outerWidth,'window.outerWidth')
+      console.groupEnd()
+    })
+    const imagesPathSlice = (path: string): string => path.split("/")[2];
     const images = reactive(
       IMAGES_LIST.map((image) => ({
         path: image,
@@ -38,17 +42,15 @@ export default {
         offset: ref(10),
       }))
     );
-    function handleMousemove(e: MouseEvent) {
-      const percentage = e.clientX / window.outerWidth;
-      const offset = (e.clientX / window.outerWidth) * 10;
+    const handleMousemove = (e: MouseEvent) => {
+      const percentage = e.clientX / window.innerWidth;
+      const offset = percentage * 10;
+      const blur = 20
       images.forEach((image, index) => {
         image.offset = offset * 1.3;
-        console.log(
-          (image.blur = Math.pow(index / images.length - percentage, 2) * 20)
-        );
+        image.blur = Math.pow(index / images.length - percentage, 2) * blur;
       });
-    }
-    console.log(images);
+    };
     return { handleMousemove, images };
   },
 };
